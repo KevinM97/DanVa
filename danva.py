@@ -8,7 +8,7 @@ import random                   #Biblioteca para generar números aleatorios.
 
 
 #API Key de OpenAI
-openai.api_key = "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"
+openai.api_key = "Api_OenAI"
 
 #La función transformar_audio_texto() utiliza la biblioteca speech_recognition para convertir el audio capturado por el micrófono en texto. 
 #La función también maneja posibles errores que pueden ocurrir durante el proceso de conversión.
@@ -74,6 +74,10 @@ def main():
     while True:
         question = transformar_audio_texto().lower()
 
+        if "adiós" in question:
+            print("Danva: ¡Hasta luego! ¡Que tengas un buen día!")
+            hablar("¡Hasta luego! ¡Que tengas un buen día!")
+            break
 #conversation y se utiliza la API de OpenAI para generar una respuesta utilizando el modelo text-davinci-003. 
 #La respuesta generada se agrega a la variable conversation, se muestra en la consola con la etiqueta "Danva:"
         conversation += "\nTu: " + question + "\nDanva:"            #Agrega la pregunta del usuario (almacenada en la variable question) a la conversación, que se almacena en la variable conversation, junto con un indicador de quién está hablando ("Tu" o "Danva").
@@ -85,7 +89,7 @@ def main():
             top_p=0.3,
             frequency_penalty=0.5,
             presence_penalty=0.0,
-            stop=["\n", " You:", " Danva:"]
+            stop=["\n", " Tu:", " Danva:"]
         )
         answer = response.choices[0].text.strip()                    #Almacena la respuesta generada por el modelo en la variable answer, eliminando cualquier espacio en blanco al principio o al final de la respuesta.
         conversation += answer                                       #Agrega la respuesta generada por el modelo a la conversación.
